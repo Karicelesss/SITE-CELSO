@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Celso Barreto</title>
+    <link rel="stylesheet" href="inicio.css">
+    
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Prof. Celso Barreto</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="pesquisa.html">Pesquisas</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+        <section id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Prof. Celso Barreto</h1>
+                    <p>Educação • Transição Energética • Tecnologia</p>
+                    
+                    <div class="carousel-container">
+                        <div class="carousel" id="carousel">
+                            <div class="carousel-slide slide1"><div>EDUCAÇÃO</div></div>
+                            <div class="carousel-slide slide2"><div>TRANSIÇÃO ENERGÉTICA</div></div>
+                            <div class="carousel-slide slide3"><div>TECNOLOGIA</div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-nav">
+                        <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+                        <div class="carousel-dot" onclick="goToSlide(1)"></div>
+                        <div class="carousel-dot" onclick="goToSlide(2)"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.menu-toggle').classList.toggle('active');
+        }
+        
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            document.getElementById('carousel').style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        }
+        
+        setInterval(nextSlide, 5000);
+        
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.querySelector('.nav-links').classList.remove('active');
+                document.querySelector('.menu-toggle').classList.remove('active');
+            }
+        });
+        
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
